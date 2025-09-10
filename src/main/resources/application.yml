@@ -1,0 +1,34 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+
+spring:
+  application:
+    name: verification-service
+
+  web:
+    mvc:
+      throw-exception-if-no-handler-found: true
+    resources:
+      add-mappings: false
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS}
+
+
+springdoc:
+  api-docs:
+    enabled: ${SWAGGER_ENABLED:false}
+
+  swagger-ui:
+    enabled:  ${SWAGGER_ENABLED:false}
