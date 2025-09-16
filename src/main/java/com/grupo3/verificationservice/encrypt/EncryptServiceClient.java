@@ -8,6 +8,6 @@ import shareddtos.usersmodule.auth.MessageDto;
 
 @FeignClient(name = "encrypt-service", url = "${app.clients.encrypt-service-url}")
 public interface EncryptServiceClient {
-    @PostMapping("/")
+    @PostMapping
     MessageDto encrypt(@RequestBody EncryptDto encryptDto);
 }
