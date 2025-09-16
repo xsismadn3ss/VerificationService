@@ -24,6 +24,8 @@ spring:
 app:
   cors:
     allowed-origins: ${CORS_ALLOWED_ORIGINS}
+  clients:
+    encrypt-service-url: ${ENCRYPT_SERVICE_URL}
 
 
 springdoc:
