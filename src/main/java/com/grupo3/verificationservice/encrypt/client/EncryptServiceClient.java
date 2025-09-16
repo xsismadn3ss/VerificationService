@@ -1,4 +1,4 @@
-package com.grupo3.verificationservice.encrypt;
+package com.grupo3.verificationservice.encrypt.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
