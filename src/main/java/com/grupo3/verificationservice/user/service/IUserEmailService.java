@@ -1,5 +1,7 @@
 package com.grupo3.verificationservice.user.service;
 
+import jakarta.mail.MessagingException;
+
 public interface IUserEmailService {
     /**
      * Enviar mensaje de bienvenida al crear una nueva
@@ -7,4 +9,6 @@ public interface IUserEmailService {
      * @param email
      */
     void sendGreetingEmail(String email);
+
+    void verificationCode(String email) throws MessagingException;
 }
