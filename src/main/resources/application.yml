@@ -3,7 +3,6 @@ server:
     include-message: always
     include-binding-errors: always
 
-
 spring:
   application:
     name: verification-service
@@ -15,9 +14,9 @@ spring:
       add-mappings: false
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: ${DB_URL:}
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:admin}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:
@@ -25,6 +24,17 @@ spring:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 app:
   cors:
@@ -32,10 +42,9 @@ app:
   clients:
     encrypt-service-url: ${ENCRYPT_SERVICE_URL}
 
-
 springdoc:
   api-docs:
     enabled: ${SWAGGER_ENABLED:false}
 
   swagger-ui:
-    enabled:  ${SWAGGER_ENABLED:false}
+    enabled: ${SWAGGER_ENABLED:false}
