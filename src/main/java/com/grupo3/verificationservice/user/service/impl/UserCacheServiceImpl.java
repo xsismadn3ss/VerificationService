@@ -5,6 +5,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import shareddtos.usersmodule.auth.UserDto;
 
+import java.time.Duration;
+
 @Service
 public class UserCacheServiceImpl implements IUserCacheService {
     private final RedisTemplate<String, Object> redisTemplate;
@@ -15,7 +17,7 @@ public class UserCacheServiceImpl implements IUserCacheService {
 
     @Override
     public void saveUser(UserDto userDto) {
-        redisTemplate.opsForValue().set(userDto.getEmail(), userDto);
+        redisTemplate.opsForValue().set(userDto.getEmail(), userDto, Duration.ofDays(7));
     }
 
     @Override
