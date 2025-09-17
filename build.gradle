@@ -48,7 +48,12 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'com.h2database:h2'
-    
+
+    //Email
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    //para hacer correos con html mas vistosos
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
     // Shared DTOs
     implementation 'com.github.xsismadn3ss:shared-dtos:v1.0.17'
 
