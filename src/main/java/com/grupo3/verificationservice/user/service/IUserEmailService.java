@@ -9,6 +9,4 @@ public interface IUserEmailService {
      * @param email
      */
     void sendGreetingEmail(String email);
-
-    void verificationCode(String email) throws MessagingException;
 }
