@@ -1,5 +1,7 @@
 package com.grupo3.verificationservice.user.service;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import shareddtos.usersmodule.auth.SimpleUserDto;
 import shareddtos.usersmodule.auth.UserDto;
 
@@ -14,6 +16,14 @@ public interface IUserService {
      * @return datos de usuario o nulo
      */
     Optional<SimpleUserDto> findByUsername(String username);
+
+
+    /**
+     * Buscar usuario por email
+     * @param email email
+     * @return nulo o datos de usuario
+     */
+    Optional<SimpleUserDto> findByEmail(String email);
 
     /**
      * Crear usuario a partir de un userDto
