@@ -1,7 +1,5 @@
 package com.grupo3.verificationservice.user.service;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import shareddtos.usersmodule.auth.SimpleUserDto;
 import shareddtos.usersmodule.auth.UserDto;
 
