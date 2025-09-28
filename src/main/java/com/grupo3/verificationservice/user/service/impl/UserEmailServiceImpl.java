@@ -17,13 +17,12 @@ public class UserEmailServiceImpl implements IUserEmailService {
     }
 
     @Override
-    public void sendGreetingEmail(String email) {
+    public void sendGreetingEmail(String email, String name) {
         String htmlContent = templateHelper.getTemplate("welcome-email.html");
         emailHelper.sendEmail(
                 email,
-                "!Bienvenido a nuestro servicio",
-                // TODO: agregar reemplazo para poner el nombre de la persona o su email en la plantilla
-                htmlContent
+                "!Bienvenido a nuestro sistema",
+                htmlContent.replace("{{name}}", name)
         );
     }
 
