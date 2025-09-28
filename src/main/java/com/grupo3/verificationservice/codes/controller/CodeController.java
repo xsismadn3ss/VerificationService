@@ -1,10 +1,11 @@
-package com.grupo3.verificationservice.codes;
+package com.grupo3.verificationservice.codes.controller;
 
 import com.grupo3.verificationservice.codes.dto.EmailDto;
 import com.grupo3.verificationservice.codes.service.ICodeCacheService;
 import com.grupo3.verificationservice.codes.service.ICodeEmailService;
 import com.grupo3.verificationservice.codes.service.IRandomCodeService;
 import com.grupo3.verificationservice.user.service.IUserCacheService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,10 @@ public class CodeController {
     @Autowired private IUserCacheService userCacheService;
 
     @PostMapping("/create")
+    @Operation(
+            summary = "Solicitar código de verificación",
+            description = "Devuelve un mensaje, notificando que el mensaje ha sido enviado al email"
+    )
     public ResponseEntity<MessageDto> createCode(@Valid @RequestBody EmailDto emailDto){
         // Buscar usuario en caché
         UserDto userDto = userCacheService.getUser(emailDto.getEmail());

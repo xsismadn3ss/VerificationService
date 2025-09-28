@@ -6,6 +6,7 @@ import com.grupo3.verificationservice.encrypt.client.EncryptServiceClient;
 import com.grupo3.verificationservice.user.service.IUserCacheService;
 import com.grupo3.verificationservice.user.service.IUserEmailService;
 import com.grupo3.verificationservice.user.service.IUserService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,10 @@ public class UserController {
     @Autowired private ICodeCacheService codeCacheService;
 
     @PostMapping("/register")
+    @Operation(
+            summary = "Registra un usuario en el sistema",
+            description = "Devuelve un mensaje, notificando que los datos han sido guardados y están pendientes de verificación"
+    )
     public ResponseEntity<MessageDto> registerUser(@Valid @RequestBody UserDto userDto){
         // validar si hay una cuenta existente
         Optional<SimpleUserDto> username_match = userService.findByUsername(userDto.getUsername());
@@ -60,6 +65,10 @@ public class UserController {
     }
 
     @PostMapping("/persist")
+    @Operation(
+            summary = "Persistir cuenta",
+            description = "Devuelve un mensaje, notificando que la cuenta ha sido persistida y se ha verificado"
+    )
     public ResponseEntity<MessageDto> persistUser(@Valid @RequestBody ConfirmAccountDto confirmAccountDto){
         // Buscar código en cache
         String code = codeCacheService.getCode(confirmAccountDto.getEmail());
