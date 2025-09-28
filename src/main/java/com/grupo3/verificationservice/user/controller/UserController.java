@@ -1,5 +1,7 @@
 package com.grupo3.verificationservice.user.controller;
 
+import com.grupo3.verificationservice.user.dto.ConfirmAccountDto;
+import com.grupo3.verificationservice.codes.service.ICodeCacheService;
 import com.grupo3.verificationservice.encrypt.client.EncryptServiceClient;
 import com.grupo3.verificationservice.user.service.IUserCacheService;
 import com.grupo3.verificationservice.user.service.IUserEmailService;
@@ -27,6 +29,7 @@ public class UserController {
     @Autowired private IUserService userService;
     @Autowired private IUserCacheService userCacheService;
     @Autowired private IUserEmailService userEmailService;
+    @Autowired private ICodeCacheService codeCacheService;
 
     @PostMapping("/register")
     public ResponseEntity<MessageDto> registerUser(@Valid @RequestBody UserDto userDto){
@@ -54,5 +57,35 @@ public class UserController {
 
         // enviar respuesta
         return ResponseEntity.ok(new MessageDto("Cuenta registrada correctamente, verifica tu correo electrónico"));
+    }
+
+    @PostMapping("/persist")
+    public ResponseEntity<MessageDto> persistUser(@Valid @RequestBody ConfirmAccountDto confirmAccountDto){
+        // Buscar código en cache
+        String code = codeCacheService.getCode(confirmAccountDto.getEmail());
+        if(code == null){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "El tiempo de confirmación ha finalizado o no se ha solicitado un código de verificación.");
+        }
+
+        // Validar código
+        if(!code.equals(confirmAccountDto.getCode())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Código de verificación incorrecto");
+        }
+
+        // Buscar usuario en caché
+        UserDto userDto = userCacheService.getUser(confirmAccountDto.getEmail());
+        if(userDto == null){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "El tiempo de verificación a finalizado o no te has registrado correctamente"
+            );
+        }
+
+        // Guardar en la base de datos
+        userService.createUser(userDto);
+
+        return ResponseEntity.ok(new MessageDto("Cuenta verificada con éxito, inicia sesión para usar las funciones del sistema"));
     }
 }
