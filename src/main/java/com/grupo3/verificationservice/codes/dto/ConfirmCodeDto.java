@@ -20,7 +20,6 @@ public class ConfirmCodeDto {
     /**
      * Correo electrónico al que fue enviado el código
      */
-    @NotNull(message = "el campo email no puede ser nulo")
     @NotBlank(message = "el campo email no debe estar vacío")
     @Email(message = "el email debe ser valido")
     private String email;
@@ -28,7 +27,6 @@ public class ConfirmCodeDto {
     /**
      * Código de verificación ingresado por el usuario
      */
-    @NotNull(message = "el campo code no puede ser nulo")
     @NotBlank(message = "el campo code no puede estar vacío")
     @Length(min = 6, max = 6, message = "el campo code no debe ser de solo 6 dígitos")
     private String code;
