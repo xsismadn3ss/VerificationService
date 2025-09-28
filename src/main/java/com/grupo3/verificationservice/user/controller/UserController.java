@@ -37,6 +37,10 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "El usuario ya existe");
         }
 
+        // verificar si no esta en cache
+        if(userCacheService.getUser(userDto.getEmail()) != null){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El correo ya esta en uso");
+        }
 
         // encriptar contraseña
         String hashedPassword = encryptServiceClient.encrypt(new EncryptDto(userDto.getPassword())).getMessage();
