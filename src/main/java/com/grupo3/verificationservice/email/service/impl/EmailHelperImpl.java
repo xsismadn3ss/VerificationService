@@ -1,16 +1,19 @@
 package com.grupo3.verificationservice.email.service.impl;
 
 import com.grupo3.verificationservice.email.service.IEmailHelper;
+import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class EmailHelperImpl implements IEmailHelper {
     private final JavaMailSender mailSender;
 
-    public EmailHelperImpl(JavaMailSender mailSender){
+    public EmailHelperImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
@@ -22,8 +25,12 @@ public class EmailHelperImpl implements IEmailHelper {
 
             helper.setTo(to);
             helper.setSubject(subject);
+            helper.setText(body, true);
             mailSender.send(message);
-        } catch (Exception e) {
+            log.info("Email enviado correctamente");
+        } catch (MessagingException e) {
+            log.error("Error al enviar el email");
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
