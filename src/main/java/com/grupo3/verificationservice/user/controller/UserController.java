@@ -86,6 +86,9 @@ public class UserController {
         // Guardar en la base de datos
         userService.createUser(userDto);
 
+        // eliminar código
+        codeCacheService.deleteCode(confirmAccountDto.getEmail());
+
         return ResponseEntity.ok(new MessageDto("Cuenta verificada con éxito, inicia sesión para usar las funciones del sistema"));
     }
 }
