@@ -1,4 +1,54 @@
 package com.grupo3.verificationservice.user.controller;
 
+import com.grupo3.verificationservice.encrypt.client.EncryptServiceClient;
+import com.grupo3.verificationservice.user.service.IUserCacheService;
+import com.grupo3.verificationservice.user.service.IUserEmailService;
+import com.grupo3.verificationservice.user.service.IUserService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+import shareddtos.usersmodule.auth.EncryptDto;
+import shareddtos.usersmodule.auth.MessageDto;
+import shareddtos.usersmodule.auth.SimpleUserDto;
+import shareddtos.usersmodule.auth.UserDto;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/users")
 public class UserController {
+    @Autowired private EncryptServiceClient encryptServiceClient;
+    @Autowired private IUserService userService;
+    @Autowired private IUserCacheService userCacheService;
+    @Autowired private IUserEmailService userEmailService;
+
+    @PostMapping("/register")
+    public ResponseEntity<MessageDto> registerUser(@Valid @RequestBody UserDto userDto){
+        // validar si hay una cuenta existente
+        Optional<SimpleUserDto> username_match = userService.findByUsername(userDto.getUsername());
+        Optional<SimpleUserDto> email_match = userService.findByEmail(userDto.getEmail());
+        if(username_match.isPresent() || email_match.isPresent()){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El usuario ya existe");
+        }
+
+
+        // encriptar contraseña
+        String hashedPassword = encryptServiceClient.encrypt(new EncryptDto(userDto.getPassword())).getMessage();
+        userDto.setPassword(hashedPassword);
+
+        // guardar datos en cache
+        userCacheService.saveUser(userDto);
+
+        // enviar correo electrónico
+        userEmailService.sendGreetingEmail(userDto.getEmail(), userDto.getFirstName());
+
+        // enviar respuesta
+        return ResponseEntity.ok(new MessageDto("Usuario registrado correctamente"));
+    }
 }
