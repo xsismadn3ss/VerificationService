@@ -35,6 +35,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public Optional<SimpleUserDto> findByEmail(String email) {
+        Optional<User> user = this.userRepository.findByEmail(email);
+        return user.<Optional<SimpleUserDto>>map(value -> Optional.of(getUserDto(value))).orElse(null);
+    }
+
+    @Override
     public SimpleUserDto createUser(UserDto userDto) {
         User user = new User();
         user.setName(userDto.getFirstName());

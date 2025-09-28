@@ -15,6 +15,14 @@ public interface IUserService {
      */
     Optional<SimpleUserDto> findByUsername(String username);
 
+
+    /**
+     * Buscar usuario por email
+     * @param email email
+     * @return nulo o datos de usuario
+     */
+    Optional<SimpleUserDto> findByEmail(String email);
+
     /**
      * Crear usuario a partir de un userDto
      * @param userDto DTO de usuario

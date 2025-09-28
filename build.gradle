@@ -25,10 +25,15 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 
+ext {
+    set('springCloudVersion', '2025.0.0')
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -43,9 +48,26 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'com.h2database:h2'
-    
+
+    //Email
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    //para hacer correos con html mas vistosos
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
     // Shared DTOs
-    implementation 'com.github.xsismadn3ss:shared-dtos:v1.0.17'
+    implementation 'com.github.xsismadn3ss:shared-dtos:v1.0.20'
+
+    // spring cloud
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    // redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 tasks.named('test') {
