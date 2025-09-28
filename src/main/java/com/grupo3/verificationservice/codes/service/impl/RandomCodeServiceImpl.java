@@ -15,7 +15,7 @@ public class RandomCodeServiceImpl implements IRandomCodeService {
 
     @Override
     public String generateCode() {
-        int number = random.nextInt(1_000_0000);
+        int number = random.nextInt(1_000_000);
         return String.format("%06d", number);
     }
 }
