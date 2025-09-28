@@ -33,7 +33,7 @@ public class UserController {
         // validar si hay una cuenta existente
         Optional<SimpleUserDto> username_match = userService.findByUsername(userDto.getUsername());
         Optional<SimpleUserDto> email_match = userService.findByEmail(userDto.getEmail());
-        if(username_match.isPresent() || email_match.isPresent()){
+        if(username_match != null || email_match != null){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "El usuario ya existe");
         }
 
@@ -49,6 +49,6 @@ public class UserController {
         userEmailService.sendGreetingEmail(userDto.getEmail(), userDto.getFirstName());
 
         // enviar respuesta
-        return ResponseEntity.ok(new MessageDto("Usuario registrado correctamente"));
+        return ResponseEntity.ok(new MessageDto("Cuenta registrada correctamente, verifica tu correo electrónico"));
     }
 }
