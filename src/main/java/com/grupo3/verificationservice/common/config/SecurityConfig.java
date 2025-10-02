@@ -20,26 +20,10 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        String prop = allowedOriginsProp == null ? "" : allowedOriginsProp;
-
-        // Soportar valores separados por coma o espacios; limpiar comillas y slashes finales
-        List<String> origins = Stream.of(prop.split("[,\\s]+"))
-                .map(String::trim)
-                .map(s -> s.replaceAll("^\"|\"$", "")) // quita comillas al inicio/fin si hubiera
-                .filter(s -> !s.isBlank())
-                .map(s -> s.endsWith("/") ? s.substring(0, s.length() - 1) : s) // sin slash final
-                .distinct()
-                .toList();
+        String[] origins = allowedOriginsProp.split(",");
 
         CorsConfiguration config = new CorsConfiguration();
-
-        boolean hasPattern = origins.stream().anyMatch(o -> o.contains("*") || o.contains("?"));
-        if (hasPattern) {
-            config.setAllowedOriginPatterns(origins);
-        } else {
-            config.setAllowedOrigins(origins);
-        }
-
+        config.setAllowedOrigins(Stream.of(origins).toList());
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"));
         config.setAllowCredentials(true);
