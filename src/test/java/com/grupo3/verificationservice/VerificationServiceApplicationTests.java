@@ -8,6 +8,7 @@ class VerificationServiceApplicationTests {
 
     @Test
     void contextLoads() {
+        assert true;
     }
 
 }
