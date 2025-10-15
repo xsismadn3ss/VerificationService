@@ -55,7 +55,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     // Shared DTOs
-    implementation 'com.github.xsismadn3ss:shared-dtos:v1.0.20'
+    implementation 'com.github.xsismadn3ss:shared-dtos:v1.0.21'
 
     // spring cloud
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
