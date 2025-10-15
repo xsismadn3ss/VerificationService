@@ -57,9 +57,6 @@ public class UserController {
         // guardar datos en cache
         userCacheService.saveUser(userDto);
 
-        // enviar correo electrónico
-        userEmailService.sendGreetingEmail(userDto.getEmail(), userDto.getFirstName());
-
         // enviar respuesta
         return ResponseEntity.ok(new MessageDto("Cuenta registrada correctamente, verifica tu correo electrónico"));
     }
@@ -94,6 +91,9 @@ public class UserController {
 
         // Guardar en la base de datos
         userService.createUser(userDto);
+
+        // enviar correo electrónico
+        userEmailService.sendGreetingEmail(userDto.getEmail(), userDto.getFirstName());
 
         // eliminar código
         codeCacheService.deleteCode(confirmAccountDto.getEmail());
