@@ -1,9 +1,9 @@
 package com.grupo3.verificationservice.user.service.impl;
 
+import com.grupo3.verificationservice.user.dto.UserRegisterDto;
 import com.grupo3.verificationservice.user.service.IUserCacheService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import shareddtos.usersmodule.auth.UserDto;
 
 import java.time.Duration;
 
@@ -16,12 +16,12 @@ public class UserCacheServiceImpl implements IUserCacheService {
     }
 
     @Override
-    public void saveUser(UserDto userDto) {
+    public void saveUser(UserRegisterDto userDto) {
         redisTemplate.opsForValue().set(userDto.getEmail(), userDto, Duration.ofDays(7));
     }
 
     @Override
-    public UserDto getUser(String email) {
-        return (UserDto) redisTemplate.opsForValue().get(email);
+    public UserRegisterDto getUser(String email) {
+        return (UserRegisterDto) redisTemplate.opsForValue().get(email);
     }
 }

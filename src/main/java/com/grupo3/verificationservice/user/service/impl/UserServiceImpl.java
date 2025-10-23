@@ -1,11 +1,11 @@
 package com.grupo3.verificationservice.user.service.impl;
 
+import com.grupo3.verificationservice.user.dto.UserRegisterDto;
 import com.grupo3.verificationservice.user.entity.User;
 import com.grupo3.verificationservice.user.repository.UserRepository;
 import com.grupo3.verificationservice.user.service.IUserService;
 import org.springframework.stereotype.Service;
 import shareddtos.usersmodule.auth.SimpleUserDto;
-import shareddtos.usersmodule.auth.UserDto;
 
 import java.util.Optional;
 
@@ -17,8 +17,8 @@ public class UserServiceImpl implements IUserService {
         this.userRepository = userRepository;
     }
 
-    private UserDto getUserDto(User user) {
-        UserDto userDto = new UserDto();
+    private UserRegisterDto getUserDto(User user) {
+        UserRegisterDto userDto = new UserRegisterDto();
         userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setFirstName(user.getName());
@@ -41,7 +41,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public SimpleUserDto createUser(UserDto userDto) {
+    public SimpleUserDto createUser(UserRegisterDto userDto) {
         User user = new User();
         user.setName(userDto.getFirstName());
         user.setLastname(userDto.getLastName());
