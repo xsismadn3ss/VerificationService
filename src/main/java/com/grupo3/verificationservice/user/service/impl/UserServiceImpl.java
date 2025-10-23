@@ -41,13 +41,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public SimpleUserDto createUser(UserRegisterDto userDto) {
+    public void createUser(UserRegisterDto userDto) {
         User user = new User();
         user.setName(userDto.getFirstName());
         user.setLastname(userDto.getLastName());
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
-        return getUserDto(this.userRepository.save(user)).toSimpleUserDto();
     }
 }

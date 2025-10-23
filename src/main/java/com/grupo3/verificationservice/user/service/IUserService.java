@@ -28,5 +28,5 @@ public interface IUserService {
      * @param userDto DTO de usuario
      * @return datos básicos del usuario
      */
-    SimpleUserDto createUser(UserRegisterDto userDto);
+    void createUser(UserRegisterDto userDto);
 }
