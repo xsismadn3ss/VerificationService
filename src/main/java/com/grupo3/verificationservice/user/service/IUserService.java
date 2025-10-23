@@ -2,7 +2,6 @@ package com.grupo3.verificationservice.user.service;
 
 import com.grupo3.verificationservice.user.dto.UserRegisterDto;
 import shareddtos.usersmodule.auth.SimpleUserDto;
-import shareddtos.usersmodule.auth.UserDto;
 
 import java.util.Optional;
 

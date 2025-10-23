@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import shareddtos.usersmodule.auth.SimpleUserDto;
-import shareddtos.usersmodule.auth.UserDto;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
