@@ -3,6 +3,7 @@ package com.grupo3.verificationservice.user.controller;
 import com.grupo3.verificationservice.user.dto.ConfirmAccountDto;
 import com.grupo3.verificationservice.codes.service.ICodeCacheService;
 import com.grupo3.verificationservice.encrypt.client.EncryptServiceClient;
+import com.grupo3.verificationservice.user.dto.UserRegisterDto;
 import com.grupo3.verificationservice.user.service.IUserCacheService;
 import com.grupo3.verificationservice.user.service.IUserEmailService;
 import com.grupo3.verificationservice.user.service.IUserService;
@@ -37,11 +38,11 @@ public class UserController {
             summary = "Registra un usuario en el sistema",
             description = "Devuelve un mensaje, notificando que los datos han sido guardados y están pendientes de verificación"
     )
-    public ResponseEntity<MessageDto> registerUser(@Valid @RequestBody UserDto userDto){
+    public ResponseEntity<MessageDto> registerUser(@Valid @RequestBody UserRegisterDto userDto){
         // validar si hay una cuenta existente
         Optional<SimpleUserDto> username_match = userService.findByUsername(userDto.getUsername());
         Optional<SimpleUserDto> email_match = userService.findByEmail(userDto.getEmail());
-        if(username_match != null || email_match != null){
+        if(username_match.isPresent() || email_match.isPresent()){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "El usuario ya existe");
         }
 
@@ -84,7 +85,7 @@ public class UserController {
         }
 
         // Buscar usuario en caché
-        UserDto userDto = userCacheService.getUser(confirmAccountDto.getEmail());
+        UserRegisterDto userDto = userCacheService.getUser(confirmAccountDto.getEmail());
         if(userDto == null){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
