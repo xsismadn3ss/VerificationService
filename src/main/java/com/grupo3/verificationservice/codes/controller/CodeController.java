@@ -4,6 +4,7 @@ import com.grupo3.verificationservice.codes.dto.EmailDto;
 import com.grupo3.verificationservice.codes.service.ICodeCacheService;
 import com.grupo3.verificationservice.codes.service.ICodeEmailService;
 import com.grupo3.verificationservice.codes.service.IRandomCodeService;
+import com.grupo3.verificationservice.user.dto.UserRegisterDto;
 import com.grupo3.verificationservice.user.service.IUserCacheService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import shareddtos.usersmodule.auth.MessageDto;
-import shareddtos.usersmodule.auth.UserDto;
 
 @RestController
 @RequestMapping("/codes")
@@ -33,7 +33,7 @@ public class CodeController {
     )
     public ResponseEntity<MessageDto> createCode(@Valid @RequestBody EmailDto emailDto){
         // Buscar usuario en caché
-        UserDto userDto = userCacheService.getUser(emailDto.getEmail());
+        UserRegisterDto userDto = userCacheService.getUser(emailDto.getEmail());
         if(userDto == null){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,

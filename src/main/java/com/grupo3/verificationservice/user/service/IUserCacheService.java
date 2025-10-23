@@ -1,8 +1,8 @@
 package com.grupo3.verificationservice.user.service;
 
-import shareddtos.usersmodule.auth.UserDto;
+import com.grupo3.verificationservice.user.dto.UserRegisterDto;
 
 public interface IUserCacheService {
-    void saveUser(UserDto userDto);
-    UserDto getUser(String email);
+    void saveUser(UserRegisterDto userDto);
+    UserRegisterDto getUser(String email);
 }

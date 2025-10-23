@@ -1,7 +1,7 @@
 package com.grupo3.verificationservice.user.service;
 
+import com.grupo3.verificationservice.user.dto.UserRegisterDto;
 import shareddtos.usersmodule.auth.SimpleUserDto;
-import shareddtos.usersmodule.auth.UserDto;
 
 import java.util.Optional;
 
@@ -28,5 +28,5 @@ public interface IUserService {
      * @param userDto DTO de usuario
      * @return datos básicos del usuario
      */
-    SimpleUserDto createUser(UserDto userDto);
+    void createUser(UserRegisterDto userDto);
 }
