@@ -20,7 +20,6 @@ import org.springframework.web.server.ResponseStatusException;
 import shareddtos.usersmodule.auth.EncryptDto;
 import shareddtos.usersmodule.auth.MessageDto;
 import shareddtos.usersmodule.auth.SimpleUserDto;
-import shareddtos.usersmodule.auth.UserDto;
 
 import java.util.Optional;
 

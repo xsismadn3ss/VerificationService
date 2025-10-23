@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import shareddtos.usersmodule.auth.MessageDto;
-import shareddtos.usersmodule.auth.UserDto;
 
 @RestController
 @RequestMapping("/codes")
