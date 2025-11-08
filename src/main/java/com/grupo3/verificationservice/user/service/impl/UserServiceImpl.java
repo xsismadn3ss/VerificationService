@@ -48,5 +48,6 @@ public class UserServiceImpl implements IUserService {
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
+        this.userRepository.save(user);
     }
 }
